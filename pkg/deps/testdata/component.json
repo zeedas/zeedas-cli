@@ -1,0 +1,10 @@
+{
+    "name": "zeedas",
+    "repository": "zeedas/zeedas-cli",
+    "description": "zeedas Cli",
+    "version": "1.0.0",
+    "dependencies": {
+      "component/emitter": "*",
+      "component/jquery": "*"
+    }
+}

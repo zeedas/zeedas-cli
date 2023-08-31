@@ -1,0 +1,11 @@
+{
+    "name": "zeedas",
+    "version": "1.0.0",
+    "dependencies": {
+      "animate.css": "latest",
+      "bootstrap": "latest",
+      "bootstrap-daterangepicker": "latest",
+      "moment": "latest",
+      "moment-timezone": "latest"
+    }
+}
