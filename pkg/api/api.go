@@ -62,6 +62,9 @@ func NewClient(baseURL string, opts ...Option) *Client {
 
 // Do executes c.doFunc(), which in turn allows wrapping c.client.Do() and manipulating
 // the request behavior of the api client.
+
+//check here if changes reflect
+
 func (c *Client) Do(req *http.Request) (*http.Response, error) {
 	resp, err := c.doFunc(c, req)
 	if err != nil {
