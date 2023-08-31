@@ -1,0 +1,10 @@
+{
+    "name": "zeedas",
+    "repository": "zeedas/zeedas-cli",
+    "description": "WakaTime Cli",
+    "version": "1.0.0",
+    "dependencies": {
+      "component/emitter": "*",
+      "component/jquery": "*"
+    }
+}
