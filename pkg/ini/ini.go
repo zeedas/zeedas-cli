@@ -23,20 +23,22 @@ import (
 type WakaHomeType int
 
 const (
-	defaultFolder = ".wakatime"
+	defaultFolder = ".zeedas"
 	// WakaHomeTypeUnknown is unknown WakaTime home type.
 	WakaHomeTypeUnknown WakaHomeType = iota
 	// WakaHomeTypeEnvVar is WakaTime home type from environment variable.
 	WakaHomeTypeEnvVar
-	// WakaHomeTypeOSDir is WakaTime home type from OS directory.
+	// WakaHomeTypeOSDir is WakaTime home type from OS directory
 	WakaHomeTypeOSDir
 )
 
+// here
+
 const (
 	// defaultFile is the name of the default wakatime config file.
-	defaultFile = ".wakatime.cfg"
+	defaultFile = ".zeedas.cfg"
 	// defaultInternalFile is the name of the default wakatime internal config file.
-	defaultInternalFile = "wakatime-internal.cfg"
+	defaultInternalFile = "zeedas-internal.cfg"
 	// DateFormat is the default format for date in config file.
 	DateFormat = time.RFC3339
 	// defaultTimeout is the default timeout for acquiring a lock.
@@ -126,7 +128,7 @@ func (w *WriterConfig) Write(section string, keyValue map[string]string) error {
 	return nil
 }
 
-// ReadInConfig reads wakatime config file in memory.
+// ReadInConfig reads zeedas config file in memory.
 func ReadInConfig(v *viper.Viper, configFilePath string) error {
 	v.SetConfigType("ini")
 	v.SetConfigFile(configFilePath)
@@ -138,7 +140,7 @@ func ReadInConfig(v *viper.Viper, configFilePath string) error {
 	return nil
 }
 
-// FilePath returns the path for wakatime config file.
+// FilePath returns the path for zeedas config file.
 func FilePath(v *viper.Viper) (string, error) {
 	configFilepath := vipertools.GetString(v, "config")
 	if configFilepath != "" {

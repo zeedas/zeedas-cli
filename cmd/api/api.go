@@ -30,7 +30,7 @@ func NewClientWithoutAuth(params paramscmd.API) (*api.Client, error) {
 	return newClient(params)
 }
 
-// newClient contains the logic of client initialization, except auth initialization.
+// newClient contains the logic of client initialization, except auth initialization. here
 func newClient(params paramscmd.API, opts ...api.Option) (*api.Client, error) {
 	opts = append(opts, api.WithTimeout(params.Timeout))
 	opts = append(opts, api.WithHostname(strings.TrimSpace(params.Hostname)))
@@ -41,6 +41,8 @@ func newClient(params paramscmd.API, opts ...api.Option) (*api.Client, error) {
 	} else {
 		opts = append(opts, api.WithTimezone(strings.TrimSpace(tz)))
 	}
+
+	// hello here
 
 	if params.DisableSSLVerify {
 		opts = append(opts, api.WithDisableSSLVerify())

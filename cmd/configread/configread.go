@@ -57,7 +57,7 @@ func LoadParams(v *viper.Viper) (Params, error) {
 
 	if section == "" || key == "" {
 		return Params{}, errors.New(
-			"failed reading wakatime config file. neither section nor key can be empty",
+			"failed reading zeedas config file. neither section nor key can be empty",
 		)
 	}
 

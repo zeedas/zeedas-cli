@@ -9,6 +9,7 @@ import (
 	"github.com/wakatime/wakatime-cli/pkg/output"
 )
 
+// summary
 type (
 	// Category represents the tracked category for a single day activity.
 	Category struct {

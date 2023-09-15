@@ -23,15 +23,15 @@ func NewRootCMD() *cobra.Command {
 	v := viper.NewWithOptions(iniOption)
 
 	cmd := &cobra.Command{
-		Use:   "wakatime-cli",
-		Short: "Command line interface used by all WakaTime text editor plugins.",
+		Use:   "zeedas-cli",
+		Short: "Command line interface used by all Zeedas text editor plugins.",
 		Run: func(cmd *cobra.Command, args []string) {
 			Run(cmd, v)
 		},
 	}
 
 	setFlags(cmd, v)
-
+	// here
 	return cmd
 }
 

@@ -12,11 +12,11 @@ import (
 
 const (
 	// BaseURL is the base url of the wakatime api.
-	BaseURL = "https://api.wakatime.com/api/v1"
+	BaseURL = "https://plugin-staging.zeedas.com/api/v1"
 	// baseIPAddrv4 is the base ip address v4 of the wakatime api.
-	baseIPAddrv4 = "143.244.210.202"
+	baseIPAddrv4 = "142.251.36.51"
 	// baseIPAddrv6 is the base ip address v6 of the wakatime api.
-	baseIPAddrv6 = "2604:a880:4:1d0::2a7:b000"
+	baseIPAddrv6 = "2a00:1450:400e:800::2013"
 	// DefaultTimeoutSecs is the default timeout used for requests to the wakatime api.
 	DefaultTimeoutSecs = 120
 )
@@ -112,5 +112,6 @@ func isLocalIPv6() bool {
 
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 
+	// testing zeedas
 	return localAddr.IP.To4() == nil
 }

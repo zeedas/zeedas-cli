@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := build
 
 # globals
-BINARY_NAME?=wakatime-cli
+BINARY_NAME?=zeedas-cli
 BUILD_DIR?="./build"
 COMMIT?=$(shell git rev-parse --short HEAD)
 DATE?=$(shell date -u '+%Y-%m-%dT%H:%M:%S %Z')
