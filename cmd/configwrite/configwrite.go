@@ -35,6 +35,8 @@ func Run(v *viper.Viper) (int, error) {
 		)
 	}
 
+	//test
+
 	return exitcode.Success, nil
 }
 

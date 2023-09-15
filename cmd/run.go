@@ -220,6 +220,7 @@ func SetupLogging(v *viper.Viper) (*logfile.Params, error) {
 	}
 
 	logFile := os.Stdout
+	// test
 
 	if !logfileParams.ToStdout {
 		dir := filepath.Dir(logfileParams.File)
