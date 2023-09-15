@@ -197,14 +197,14 @@ func InternalFilePath(v *viper.Viper) (string, error) {
 
 // WakaHomeDir returns the current user's home directory.
 func WakaHomeDir() (string, WakaHomeType, error) {
-	home, exists := os.LookupEnv("WAKATIME_HOME")
+	home, exists := os.LookupEnv("ZEEDAS_HOME")
 	if exists && home != "" {
 		home, err := homedir.Expand(home)
 		if err == nil {
 			return home, WakaHomeTypeEnvVar, nil
 		}
 
-		log.Warnf("failed to expand WAKATIME_HOME filepath: %s", err)
+		log.Warnf("failed to expand ZEEDAS_HOME filepath: %s", err)
 	}
 
 	home, err := os.UserHomeDir()

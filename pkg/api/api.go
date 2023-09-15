@@ -112,6 +112,5 @@ func isLocalIPv6() bool {
 
 	localAddr := conn.LocalAddr().(*net.UDPAddr)
 
-	// testing zeedas
 	return localAddr.IP.To4() == nil
 }
