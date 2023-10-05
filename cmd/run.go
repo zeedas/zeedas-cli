@@ -37,6 +37,7 @@ import (
 	iniv1 "gopkg.in/ini.v1"
 )
 
+// type diagnostics struct 
 type diagnostics struct {
 	Logs          string
 	OriginalError any
