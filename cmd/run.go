@@ -37,6 +37,7 @@ import (
 	iniv1 "gopkg.in/ini.v1"
 )
 
+// type diagnostics struct 
 type diagnostics struct {
 	Logs          string
 	OriginalError any
@@ -44,6 +45,120 @@ type diagnostics struct {
 	Stack         string
 }
 
+func RunCobra(cmd *cobra.Command, v *viper.Viper) {
+	// force setup logging otherwise log goes to std out
+	_, err := SetupLogging(v)
+	if err != nil {
+		log.Fatalf("failed to setup logging: %s", err)
+	}
+
+	err = parseConfigFiles(v)
+	if err != nil {
+		log.Errorf("failed to parse config files: %s", err)
+
+		if v.IsSet("entity") {
+			saveHeartbeats(v)
+
+			os.Exit(exitcode.ErrConfigFileParse)
+		}
+	}
+
+	// setup logging again to use config file settings
+	logFileParams, err := SetupLogging(v)
+	if err != nil {
+		log.Fatalf("failed to setup logging: %s", err)
+	}
+
+	// register all custom lexers
+	if err := lexer.RegisterAll(); err != nil {
+		log.Fatalf("failed to register custom lexers: %s", err)
+	}
+
+	if v.GetBool("user-agent") {
+		log.Debugln("command: user-agent")
+
+		fmt.Println(heartbeat.UserAgent(vipertools.GetString(v, "plugin")))
+
+		os.Exit(exitcode.Success)
+	}
+
+	if v.GetBool("version") {
+		log.Debugln("command: version")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, runVersion)
+	}
+
+	if v.IsSet("config-read") {
+		log.Debugln("command: config-read")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, configread.Run)
+	}
+
+	if v.IsSet("config-write") {
+		log.Debugln("command: config-write")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, configwrite.Run)
+	}
+
+	if v.GetBool("today") {
+		log.Debugln("command: today")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, today.Run)
+	}
+
+	if v.IsSet("today-goal") {
+		log.Debugln("command: today-goal")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, todaygoal.Run)
+	}
+
+	if v.GetBool("file-experts") {
+		log.Debugln("command: file-experts")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, fileexperts.Run)
+	}
+
+	if v.IsSet("entity") {
+		log.Debugln("command: heartbeat")
+
+		RunCmdWithOfflineSync(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, cmdheartbeat.Run)
+	}
+
+	if v.IsSet("sync-offline-activity") {
+		log.Debugln("command: sync-offline-activity")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, offlinesync.Run)
+	}
+
+	if v.GetBool("offline-count") {
+		log.Debugln("command: offline-count")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, offlinecount.Run)
+	}
+
+	if v.IsSet("print-offline-heartbeats") {
+		log.Debugln("command: print-offline-heartbeats")
+
+		RunCmd(v, logFileParams.Verbose, logFileParams.SendDiagsOnErrors, offlineprint.Run)
+	}
+
+	log.Warnf("one of the following parameters has to be provided: %s", strings.Join([]string{
+		"--config-read",
+		"--config-write",
+		"--entity",
+		"--offline-count",
+		"--print-offline-heartbeats",
+		"--sync-offline-activity",
+		"--today",
+		"--today-goal",
+		"--useragent",
+		"--version",
+	}, ", "))
+
+	_ = cmd.Help()
+
+	os.Exit(exitcode.ErrGeneric)
+}
 // Run executes commands parsed from a command line.
 func Run(cmd *cobra.Command, v *viper.Viper) {
 	// force setup logging otherwise log goes to std out
