@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/ini.v1"
 )
-
+// this line specifies chnages to go file
 // defaultConfigSection is the default section in the wakatime ini config file.
 const defaultConfigSection = "settings"
 
